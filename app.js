@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const { errors } = require('celebrate');
 const usersRouter = require('./routes/users');
 const articlesRouter = require('./routes/articles');
 const NotFoundError = require('./errors/not-found-err');
@@ -16,6 +17,8 @@ app.use(articlesRouter);
 app.use((req, res, next) => {
   next(new NotFoundError('Recurso no encontrado'));
 });
+
+app.use(errors());
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
