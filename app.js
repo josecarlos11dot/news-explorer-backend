@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const usersRouter = require('./routes/users');
+const articlesRouter = require('./routes/articles');
 const NotFoundError = require('./errors/not-found-err');
 
 const { PORT = 3000 } = process.env;
@@ -10,6 +11,7 @@ const app = express();
 app.use(express.json());
 
 app.use(usersRouter);
+app.use(articlesRouter);
 
 app.use((req, res, next) => {
   next(new NotFoundError('Recurso no encontrado'));
