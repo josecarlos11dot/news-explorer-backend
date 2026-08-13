@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -6,7 +7,7 @@ const articlesRouter = require('./routes/articles');
 const NotFoundError = require('./errors/not-found-err');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3000, MONGO_URI = 'mongodb://127.0.0.1:27017/news-explorer' } = process.env;
 
 const app = express();
 
@@ -33,7 +34,7 @@ app.use((err, req, res, next) => {
   });
 });
 
-mongoose.connect('mongodb://127.0.0.1:27017/news-explorer')
+mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
   .catch((err) => console.error('MongoDB connection error:', err));
 
