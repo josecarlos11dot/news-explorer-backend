@@ -53,6 +53,10 @@ npm run dev
 
 El servidor corre por defecto en el puerto 3000.
 
+## Nota sobre el flujo de Git
+
+A diferencia de la entrega del frontend (donde hice merge de `stage-react-api` a `main` para practicar el flujo completo), en esta entrega dejo intencionalmente el Pull Request de `stage-back-end` → `main` **abierto sin fusionar**, tal como indica la consigna oficial del proyecto: el merge debe realizarse únicamente después de que el trabajo sea acreditado por el revisor.
+
 ## Repositorio relacionado
 
 - [Frontend](https://github.com/josecarlos11dot/news-explorer-frontend)
