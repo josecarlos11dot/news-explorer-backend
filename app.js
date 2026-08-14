@@ -2,9 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
-const usersRouter = require('./routes/users');
-const articlesRouter = require('./routes/articles');
-const NotFoundError = require('./errors/not-found-err');
+const routes = require('./routes');
+const errorHandler = require('./middlewares/error-handler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000, MONGO_URI = 'mongodb://127.0.0.1:27017/news-explorer' } = process.env;
@@ -15,23 +14,13 @@ app.use(express.json());
 
 app.use(requestLogger);
 
-app.use(usersRouter);
-app.use(articlesRouter);
-
-app.use((req, res, next) => {
-  next(new NotFoundError('Recurso no encontrado'));
-});
+app.use(routes);
 
 app.use(errorLogger);
 
 app.use(errors());
 
-app.use((err, req, res, _next) => {
-  const { statusCode = 500, message } = err;
-  res.status(statusCode).send({
-    message: statusCode === 500 ? 'Error interno del servidor' : message,
-  });
-});
+app.use(errorHandler);
 
 mongoose.connect(MONGO_URI)
   .then(() => console.log('Connected to MongoDB'))
