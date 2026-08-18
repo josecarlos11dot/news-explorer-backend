@@ -4,7 +4,7 @@ API del proyecto final de TripleTen: News Explorer. Permite registrar usuarios, 
 
 ## Demo
 
-🔗 API en producción: [https://newsexplorerjose.mooo.com](https://newsexplorerjose.mooo.com)
+🔗 API en producción: [https://api.newsexplorerjose.mooo.com](https://api.newsexplorerjose.mooo.com)
 
 ## Tecnologías
 
