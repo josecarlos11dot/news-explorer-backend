@@ -14,6 +14,8 @@ API del proyecto final de TripleTen: News Explorer. Permite registrar usuarios, 
 - bcryptjs para el hash de contraseñas
 - celebrate/Joi para validación de datos
 - winston + express-winston para logging
+- helmet para headers de seguridad
+- express-rate-limit para limitar solicitudes por IP
 - ESLint (Airbnb base)
 
 ## Rutas de la API
