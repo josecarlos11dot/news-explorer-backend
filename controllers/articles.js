@@ -2,6 +2,7 @@ const Article = require('../models/article');
 const BadRequestError = require('../errors/bad-request-err');
 const ForbiddenError = require('../errors/forbidden-err');
 const NotFoundError = require('../errors/not-found-err');
+const { ERROR_MESSAGES } = require('../utils/constants');
 
 module.exports.getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
@@ -24,7 +25,7 @@ module.exports.createArticle = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Datos inválidos al crear el artículo'));
+        next(new BadRequestError(ERROR_MESSAGES.INVALID_ARTICLE_DATA));
         return;
       }
       next(err);
@@ -35,11 +36,11 @@ module.exports.deleteArticle = (req, res, next) => {
   Article.findById(req.params.articleId).select('+owner')
     .then((article) => {
       if (!article) {
-        return Promise.reject(new NotFoundError('Artículo no encontrado'));
+        return Promise.reject(new NotFoundError(ERROR_MESSAGES.ARTICLE_NOT_FOUND));
       }
 
       if (article.owner.toString() !== req.user._id) {
-        return Promise.reject(new ForbiddenError('No puedes borrar artículos de otro usuario'));
+        return Promise.reject(new ForbiddenError(ERROR_MESSAGES.FORBIDDEN_DELETE));
       }
 
       return Article.findByIdAndDelete(req.params.articleId)
@@ -47,7 +48,7 @@ module.exports.deleteArticle = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'CastError') {
-        next(new BadRequestError('ID de artículo inválido'));
+        next(new BadRequestError(ERROR_MESSAGES.INVALID_ARTICLE_ID));
         return;
       }
       next(err);

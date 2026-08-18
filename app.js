@@ -1,15 +1,18 @@
 require('dotenv').config();
 const express = require('express');
+const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const routes = require('./routes');
 const errorHandler = require('./middlewares/error-handler');
+const rateLimiter = require('./middlewares/rate-limiter');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-
-const { PORT = 3000, MONGO_URI = 'mongodb://127.0.0.1:27017/news-explorer' } = process.env;
+const { PORT, MONGO_URI } = require('./utils/constants');
 
 const app = express();
 
+app.use(helmet());
+app.use(rateLimiter);
 app.use(express.json());
 
 app.use(requestLogger);
