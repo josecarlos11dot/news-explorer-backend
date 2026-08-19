@@ -1,5 +1,6 @@
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const helmet = require('helmet');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
@@ -12,6 +13,7 @@ const { PORT, MONGO_URI } = require('./utils/constants');
 const app = express();
 
 app.use(helmet());
+app.use(cors());
 app.use(rateLimiter);
 app.use(express.json());
 
