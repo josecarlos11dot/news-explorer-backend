@@ -55,6 +55,10 @@ npm run dev
 
 El servidor corre por defecto en el puerto 3000.
 
+## Nota sobre warnings de instalación
+
+Al ejecutar `npm install`, aparecen algunos `npm warn deprecated` (paquetes como `glob`, `rimraf`, `inflight`, `@humanwhocodes/*`). Estos provienen de dependencias internas de **ESLint 8**, versión requerida por este proyecto porque es la última compatible con el formato `.eslintrc` (extendiendo `airbnb-base`) que exige explícitamente la rúbrica del bootcamp. Migrar a ESLint 9 o superior eliminaría estos warnings, pero requeriría reemplazar `.eslintrc` por el nuevo formato `eslint.config.js`, lo cual entraría en conflicto con ese requisito puntual. Los warnings son informativos: no afectan la funcionalidad, seguridad ni el resultado de `npx eslint .`, que se ejecuta sin errores.
+
 ## Nota sobre el flujo de Git
 
 A diferencia de la entrega del frontend (donde hice merge de `stage-react-api` a `main` para practicar el flujo completo), en esta entrega dejo intencionalmente el Pull Request de `stage-back-end` → `main` **abierto sin fusionar**, tal como indica la consigna oficial del proyecto: el merge debe realizarse únicamente después de que el trabajo sea acreditado por el revisor.
